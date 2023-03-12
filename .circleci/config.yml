@@ -64,6 +64,7 @@ jobs:
             cd backend
             npm install
             npm run build
+            npm audit fix --audit-level=critical
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
@@ -74,29 +75,27 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys: [frontend-build]
+          keys: [frontend-build]
       - run:
-        name: Test frontend
-        command: |
-          cd frontend
-          npm install
-          npm run test
+          name: Test frontend
+          command: |
+            cd frontend
+            npm install
+            npm run test
                 
   test-backend:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      # Restore from cache
       - restore_cache:
-        keys: [backend-build]
-      # Your job code here
+          keys: [backend-build]
       - run:
-        name: Test backend
-        command: |
-          cd backend
-          npm install
-          npm run test
+          name: Test backend
+          command: |
+            cd backend
+            npm install
+            npm run test
             
   scan-frontend:
     docker:
@@ -104,15 +103,15 @@ jobs:
     steps:
       - checkout 
       - restore_cache:
-        keys: [frontend-build]
+          keys: [frontend-build]
       - run:
-        name: Scan Frontend
-        command: |
-          cd frontend
-          npm install
-          npm audit fix --audit-level=critical
-          npm audit fix --force
-          npm audit --audit-level=critical
+          name: Scan Frontend
+          command: |
+            cd frontend
+            npm install
+            npm audit fix --audit-level=critical
+            npm audit fix --force
+            npm audit --audit-level=critical
 
   scan-backend:
     docker:
@@ -120,15 +119,15 @@ jobs:
     steps:
       - checkout 
       - restore_cache:
-        keys: [backend-build]
+          keys: [backend-build]
       - run:
-        name: Scan Backend
-        command: |
-          cd backend
-          npm install
-          npm audit fix --audit-level=critical
-          npm audit fix --force
-          npm audit --audit-level=critical
+          name: Scan Backend
+          command: |
+            cd backend
+            npm install
+            npm audit fix --audit-level=critical
+            npm audit fix --force
+            npm audit --audit-level=critical
 
 #   deploy-infrastructure:
 #     docker:
