@@ -197,7 +197,8 @@ jobs:
             apk add --update openssh-client git
       # Add ssh keys with fingerprint
       - add_ssh_keys:
-          fingerprints: ["aa:06:4a:a8:71:55:b3:d3:c8:e0:5c:e6:2f:04:8a:07"]
+          fingerprints: 
+            - "aa:06:4a:a8:71:55:b3:d3:c8:e0:5c:e6:2f:04:8a:07"
       # attach workspace
       - attach_workspace:
           at: ~/
