@@ -22,7 +22,10 @@ commands:
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
-      # Add parameter here     
+      # Add parameter here  
+      ID:
+        type: string
+        default: None   
     steps:
       - run:
           name: Revert migrations
@@ -32,9 +35,9 @@ commands:
             SUCCESS=$(curl --insecure https://kvdb.io/HJKmjzoT7HLBJcNApzhtuL/migration_<< parameters.ID >>)
             if(( $SUCCESS==1 )); 
             then
-             cd ~/project/backend
-             npm install
-             npm run migration:revert
+              cd ~/project/backend
+              npm install
+              npm run migration:revert
             fi
             
 jobs:
@@ -275,7 +278,7 @@ jobs:
             cd frontend
             npm install
             npm run build
-            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:8}".tar.gz dist
+            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:8} --recursive
       # Here's where you will add some code to rollback on failure  
       - destroy-environment:
