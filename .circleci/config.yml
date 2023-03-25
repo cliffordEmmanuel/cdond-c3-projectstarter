@@ -360,7 +360,7 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      - run:aws s3
+      - run: 
           name: Install dependencies
           command: |
             apk add --update curl nodejs npm
