@@ -29,13 +29,13 @@
     production: yes
     state: present
 
-- name: Extract files into the EC2 instance
-  unarchive:
-    src: artifact.tar.gz
-    dest: ~/backend
+# - name: Extract files into the EC2 instance
+#   unarchive:
+#     src: artifact.tar.gz
+#     dest: ~/backend
 
-- name: Start the app
-  become: true
-  shell: |
-    cd backend
-    npm install
+# - name: Start the app
+#   become: true
+#   shell: |
+#     cd backend
+#     npm install
