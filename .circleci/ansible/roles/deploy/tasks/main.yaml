@@ -29,13 +29,17 @@
     production: yes
     state: present
 
-# - name: Extract files into the EC2 instance
-#   unarchive:
-#     src: artifact.tar.gz
-#     dest: ~/backend
+- name: "Copy artifact into Instance"
+  unarchive:
+    src: ~/project/artifact.tar.gz
+    dest: /home/ubuntu/artifact.tar.gz
 
-# - name: Start the app
-#   become: true
-#   shell: |
-#     cd backend
-#     npm install
+- name: "Start app"
+  become: true
+  shell: |
+    cd /home/ubuntu
+    tar xzvf artifact.tar.gz
+    npm install
+    npm run build
+    pm2 stop all
+    pm2 start npm -- start
