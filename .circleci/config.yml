@@ -334,10 +334,13 @@ jobs:
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> ".env"
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> ".env"
 
+            pwd
+            ls -al
             npm i
             npm run build
             cd ..
             pwd
+            ls -al
             tar -C backend -czvf artifact.tar.gz .
 
             cd .circleci/ansible
@@ -378,10 +381,10 @@ jobs:
             export API_URL="http://${BACKEND_IP}:3030" 
             echo "API_URL=${API_URL}"
 
-            echo "Sleeping for 1 minute"
+            echo "Sleeping for 2 minute"
             sleep 120
 
-            if curl "${API_URL}/api/status" | grep "ok"
+            if curl -v "${API_URL}/api/status" | grep "ok"
             then
               return 0
             else
