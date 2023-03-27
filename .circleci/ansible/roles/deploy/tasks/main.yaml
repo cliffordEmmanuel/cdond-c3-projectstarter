@@ -6,7 +6,7 @@
 
 - name: Extract files into the EC2 instance
   unarchive:
-    src: artifact.tar.gz
+    src: ~/project/artifact.tar.gz
     dest: ~/backend
 
 - name: Start the app
